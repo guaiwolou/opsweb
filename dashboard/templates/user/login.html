@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>{{ title }}</title>
+       <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    </head>
+    <body>
+    <form action="/dashboard/login/" method="post">
+        <ul>
+            <li><input type="text" name="username" id="username"></li>
+            <li><input type="password" name="password" id="password"></li>
+            <li><input type="submit" value="登陆" id="form_submit"></li>
+        </ul>
+    </form>
+    </body>
+</html>
+<script>
+$(function(){
+    $("#form_submit").click(function () {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        console.log("用户名:"+ username);
+        console.log("密码:" + password);
+        $.post("/dashboard/login/",  //提交的地址
+            {"username": username,"password": password},  //提交的参数
+          function(data){          //返回函数
+          alert("Data Loaded: " + data);
+          });
+        return false;   //阻止默认行为
+    })
+});
+
+</script>
