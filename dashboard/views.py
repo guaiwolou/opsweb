@@ -3,7 +3,7 @@ from django.http.response import HttpResponse, JsonResponse
 import json
 from django.template import Context, loader, RequestContext
 from django.shortcuts import render
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -59,7 +59,7 @@ def login_view(request):
             else:
                 return HttpResponse("User is not Active!")
         else:
-            return HttpResponse("Login Failed!")
+            return HttpResponse("User Login Failed!")
 
 def logout_view(request):
     logout(request)
