@@ -47,21 +47,26 @@ def context3(request):
 #GET/POST
 def login_view(request):
     if request.method == "GET":
-        return render(request, "user/login.html", {"title": "Guaiwolo.com"})
+        return render(request, "user/login.html")
     elif request.method == "POST":
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
         user = authenticate(username=username, password=password)
         print user
+        res = {"status": 0}
         if user is not None:
-            print user.is_active
             if user.is_active:
                 login(request, user)
-                return HttpResponse("Login Success!")
             else:
-                return HttpResponse("User is not Active!")
+                res['status'] = 1
+                res['errmsg'] = "User is not Active!"
         else:
-            return HttpResponse("User Login Failed!")
+            res['status'] = 2
+            res['errmsg'] = "User Login Failed!"
+        print res
+        return JsonResponse(res, safe=True)
+
+
 
 def logout_view(request):
     logout(request)
