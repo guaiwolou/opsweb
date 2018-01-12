@@ -2,10 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
+        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     </head>
     <body>
 
-        <form action="#" method="post">  <!--#提交到当前路径用-->
+        <form action="#" method="put">  <!--#提交到当前路径用-->
             <ul>
                 <li><input type="text" name="username"></li>
                 <li><input type="checkbox" name="fav" value="1"> linux</li>
@@ -17,3 +18,11 @@
         </form>
     </body>
 </html>
+
+<script>
+     $.ajax({
+         url: "#",
+         data: {"username":"zero","fav":["1","2"]},
+         type:"put",
+     });
+</script>

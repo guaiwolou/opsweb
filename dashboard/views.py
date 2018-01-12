@@ -1,9 +1,10 @@
 #coding:utf8
-from django.http.response import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, QueryDict
 import json
 from django.template import Context, loader, RequestContext
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+
 
 # Create your views here.
 
@@ -71,12 +72,9 @@ def logout_view(request):
 def test_form(request):
     if request.method == "GET":
         return render(request, "test/test_from.html")
-    elif request.method == "POST":
-        print request.POST
-        print request.POST.get("username", "")
-        print request.POST.getlist("username", "")
-        print request.POST.lists()
-        print request.POST.dict()
+    else:
+        fav = QueryDict(request.body).getlist("fav[]", "")
+        print fav
         return HttpResponse("")
 
 
