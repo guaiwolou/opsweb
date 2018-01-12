@@ -53,6 +53,7 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         print user
         if user is not None:
+            print user.is_active
             if user.is_active:
                 login(request, user)
                 return HttpResponse("Login Success!")
@@ -64,4 +65,18 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponse("logout!")
+
+
+
+def test_form(request):
+    if request.method == "GET":
+        return render(request, "test/test_from.html")
+    elif request.method == "POST":
+        print request.POST
+        print request.POST.get("username", "")
+        print request.POST.getlist("username", "")
+        print request.POST.lists()
+        print request.POST.dict()
+        return HttpResponse("")
+
 

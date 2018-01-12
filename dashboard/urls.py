@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^context3/$', views.context3),
     url(r'^login/$', views.login_view),
     url(r'^logout/$', views.logout_view),
+    url(r'^test_form/$', views.test_form),
 ]
