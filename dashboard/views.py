@@ -4,13 +4,11 @@ import json
 from django.template import Context, loader, RequestContext
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+from django.views.generic import View
 
 
 # Create your views here.
 
-
-def index(request):
-    return HttpResponse("世界你好!")
 
 #httpresponse
 def test1(request):
@@ -73,7 +71,6 @@ def logout_view(request):
     return HttpResponse("logout!")
 
 
-
 def test_form(request):
     if request.method == "GET":
         return render(request, "test/test_from.html")
@@ -82,4 +79,7 @@ def test_form(request):
         print fav
         return HttpResponse("")
 
+class IndexView(View):
+    def get(self, request):
+        return render(request, "public/index.html")
 
