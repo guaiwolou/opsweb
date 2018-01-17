@@ -55,6 +55,7 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
+                res["next_url"] = "/"
             else:
                 res['status'] = 1
                 res['errmsg'] = "User is not Active!"

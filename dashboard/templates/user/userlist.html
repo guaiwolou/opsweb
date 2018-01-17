@@ -1,0 +1,25 @@
+{% extends "public/layout.html" %}
+
+{% block body %}
+    <table class="table table-striped" >
+        <tr>
+                <th>#</th>
+                <th>用户名</th>
+                <th>Email</th>
+                <th>操作</th>
+        </tr>
+
+        {% for user in userlist %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}
+
+{% block js %}
+    <script>console.log("userlist view")</script>
+{% endblock %}
