@@ -11,10 +11,11 @@
                 <th>操作</th>
         </tr>
 
-        {% for user in userlist %}
+        {% for user in page_obj.object_list %}
             <tr>
-                <td>{{ user.id }}</td>
+
                 <td>{{ forloop.counter }}</td>
+                <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
                 <td class="user_status">
@@ -51,6 +52,28 @@
         {% endfor %}
 
     </table>
+
+    <center><div>
+        <ul class="pagination">
+            <li> <a href="/user/userlist/?page=1">首页</a></li>
+            {% if page_obj.has_previous %}
+                <li> <a href="/user/userlist/?page={{ page_obj.previous_page_number }}">上一页</a></li>
+            {% endif %}
+            {% for p in page_obj.paginator.page_range %}
+                {% if p == page_obj.number %}
+                    <li class="active"> <a href="/user/userlist/?page={{ p }}">{{ p }}</a></li>
+                {% else %}
+                     <li> <a href="/user/userlist/?page={{ p }}">{{ p }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li> <a href="/user/userlist/?page={{ page_obj.next_page_number }}">下一页</a></li>
+            {% endif %}
+            <li> <a href="/user/userlist/?page={{ page_obj.paginator.num_pages }}">末页</a></li>
+         </ul>
+     </div>
+    </center>
+
 {% endblock %}
 
 {% block js %}
