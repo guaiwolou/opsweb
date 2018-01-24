@@ -7,6 +7,8 @@ from django.core.paginator import Paginator, EmptyPage
 
 class UserListView(TemplateView):
     template_name = "user/userlist.html"  #template name
+    before_index = 5
+    after_index = 5
 
     def get_context_data(self, **kwargs):
         context = super(UserListView, self).get_context_data(**kwargs)
@@ -18,6 +20,11 @@ class UserListView(TemplateView):
         except EmptyPage:
             page_obj = paginator.page(1)
         context['page_obj'] = page_obj
+        start_index = page_obj.number-self.before_index
+        if start_index < 0:
+            start_index = 0
+        end_index = page_obj.number+self.after_index
+        context['page_range'] = page_obj.paginator.page_range[start_index:end_index]
         return context
 
     def get(self, request, *args, **kwargs):
