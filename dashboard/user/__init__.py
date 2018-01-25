@@ -1,5 +1,5 @@
 # coding:utf8
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, ListView
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.http import JsonResponse
@@ -30,6 +30,29 @@ class UserListView(TemplateView):
     def get(self, request, *args, **kwargs):
         self.request = request
         return super(UserListView, self).get(request, *args, **kwargs)
+
+
+
+class UserListView1(ListView):
+    template_name = "user/userlist1.html"
+    model = User      #数据库模型
+    paginate_by = 10  #每页显示10条
+    #context_object_name = "user_list"
+    before_index = 5
+    after_index = 5
+
+    def get_context_data(self, **kwargs):
+        context = super(UserListView1, self).get_context_data(**kwargs)  #执行下父类
+        page_obj = context['page_obj']
+        context['page_range'] = self.get_page_range(page_obj)
+        return context
+
+    def get_page_range(self, page_obj):
+        start_index = page_obj.number - self.before_index
+        if start_index < 0:
+            start_index = 0
+        end_index = page_obj.number + self.after_index
+        return page_obj.paginator.page_range[start_index:end_index]
 
 
 class ModifyUserStatusView(View):

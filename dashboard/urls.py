@@ -17,6 +17,7 @@ urlpatterns = [
     #url(r'^user/userlist/$', user.UserListView.as_view()),
     url(r'^user/', include([
         url(r'^userlist/$', user.UserListView.as_view()),
+        url(r'^userlist1/$', user.UserListView1.as_view(), name="userlistView"),
         url(r'^modifystatus/$', user.ModifyUserStatusView.as_view()),
     ]))
 ]
